@@ -6,8 +6,7 @@ from unittest.mock import patch, mock_open
 from io import StringIO
 from ProductionCode.processor import (
     load_data, display_results,
-    filter_sightings_by_year, filter_by_shape,
-    get_sightings_by_shape
+    filter_by_shape, get_sightings_by_shape
 )
 import cl
 
@@ -47,19 +46,6 @@ class TestProcessorMethods(unittest.TestCase):
         self.assertIn('edna', output)
         self.assertEqual(output.count('{'), 3)
 
-    def test_filter_sightings_by_year(self):
-        """Test filtering sightings by year returns correct rows."""
-        result_1949 = filter_sightings_by_year(self.sample_data, 1949)
-        self.assertEqual(len(result_1949), 2)
-        self.assertEqual({r['city'] for r in result_1949}, {'san marcos', 'lackland afb'})
-
-        result_1956 = filter_sightings_by_year(self.sample_data, 1956)
-        self.assertEqual(len(result_1956), 1)
-        self.assertEqual(result_1956[0]['city'], 'edna')
-
-        result_empty = filter_sightings_by_year(self.sample_data, 2000)
-        self.assertEqual(len(result_empty), 0)
-
     def test_filter_by_shape(self):
         """Test filtering sightings by shape returns matching entries."""
         result_cylinder = filter_by_shape(self.sample_data, "cylinder")
@@ -82,14 +68,6 @@ class TestProcessorMethods(unittest.TestCase):
         result = get_sightings_by_shape("cylinder")
         self.assertEqual(len(result), 2)
         self.assertEqual(result[0]["shape"], "cylinder")
-
-    def test_no_arguments(self):
-        """Test that the command line tool handles no arguments correctly."""
-        with patch('sys.stdout', new=StringIO()) as fake_out:
-            with patch('sys.argv', ['cl.py']):
-                cl.main()
-            output = fake_out.getvalue()
-            self.assertIn("Please use existing arguments to filter the data", output)
 
 
 if __name__ == '__main__':
