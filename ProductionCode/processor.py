@@ -1,19 +1,10 @@
 """Helper functions for loading and filtering UFO sightings data."""
 
-import csv
-
-def load_data(filepath="Data/UFO_Sightings.csv"):
-    """Load UFO sightings data from a CSV file and return it as a list of dictionaries."""
-    with open(filepath, newline='', encoding='utf-8') as csvfile:
-        return list(csv.DictReader(csvfile))
-
-def display_results(results):
-    """Display search results."""
-    if not results:
-        print("No sightings found matching your query, please try again with different parameters.")
-        return    
-    for row in results:
-        print(row)
+data = [
+            {'datetime': '10/10/1949 20:30', 'city': 'san marcos', 'shape': 'cylinder'},
+            {'datetime': '10/10/1949 21:00', 'city': 'lackland afb', 'shape': 'light'},
+            {'datetime': '10/10/1956 21:00', 'city': 'edna', 'shape': 'cylinder'}
+        ]
 
 def filter_by_shape(data, shape):
     """filter data to match the given shape."""
