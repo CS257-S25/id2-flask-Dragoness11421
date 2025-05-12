@@ -1,4 +1,3 @@
-'''Replace me with your flask app'''
 from ProductionCode.processor import (
     display_results,
     filter_by_shape,
