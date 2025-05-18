@@ -5,8 +5,7 @@ import sys
 from unittest.mock import patch, mock_open
 from io import StringIO
 from ProductionCode.processor import (
-    load_data, display_results,
-    filter_by_shape, get_sightings_by_shape
+    display_results, filter_by_shape, get_sightings_by_shape
 )
 
 
