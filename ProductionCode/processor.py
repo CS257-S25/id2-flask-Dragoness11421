@@ -7,6 +7,7 @@ def display_results(results):
         return    
     for row in results:
         print(row)
+    return
 
 
 def filter_by_shape(data, shape):
