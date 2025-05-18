@@ -7,11 +7,8 @@ from io import StringIO
 from ProductionCode.processor import (
     display_results, filter_by_shape, get_sightings_by_shape
 )
-
-
 class TestProcessorMethods(unittest.TestCase):
     """Unit tests for functions in ProductionCode and CLI."""
-
     def setUp(self):
         """Redirect stdout and prepare sample UFO data for testing."""
         self.sample_data = [
@@ -22,11 +19,9 @@ class TestProcessorMethods(unittest.TestCase):
         self._stdout = sys.stdout
         self.held_output = StringIO()
         sys.stdout = self.held_output
-
     def tearDown(self):
         """Restore original stdout."""
         sys.stdout = self._stdout
-
     @patch("builtins.open", new_callable=mock_open, read_data='datetime,city\na,b\n')
     def test_load_data(self, mock_file):
         """Test loading CSV data into a list of dictionaries."""
@@ -34,7 +29,6 @@ class TestProcessorMethods(unittest.TestCase):
         expected_result = [{'datetime': 'a', 'city': 'b'}]
         self.assertEqual(result, expected_result)
         mock_file.assert_called_with("test_file.csv", newline='', encoding='utf-8')
-
     def test_display_results(self):
         """Test that display_results prints each row in the data."""
         display_results(self.sample_data)
@@ -43,7 +37,6 @@ class TestProcessorMethods(unittest.TestCase):
         self.assertIn('lackland afb', output)
         self.assertIn('edna', output)
         self.assertEqual(output.count('{'), 3)
-
     def test_filter_by_shape(self):
         """Test filtering sightings by shape returns matching entries."""
         result_cylinder = filter_by_shape(self.sample_data, "cylinder")
@@ -56,7 +49,6 @@ class TestProcessorMethods(unittest.TestCase):
 
         result_empty = filter_by_shape(self.sample_data, "disk")
         self.assertEqual(len(result_empty), 0)
-
     @patch("builtins.open", new_callable=mock_open, read_data=
            "datetime,city,state,shape,duration,comments\n"
            "10/10/1949 20:30,san marcos,tx,cylinder,5 mins,\"desc\"\n"
@@ -66,7 +58,5 @@ class TestProcessorMethods(unittest.TestCase):
         result = get_sightings_by_shape("cylinder")
         self.assertEqual(len(result), 2)
         self.assertEqual(result[0]["shape"], "cylinder")
-
-
 if __name__ == '__main__':
     unittest.main()
