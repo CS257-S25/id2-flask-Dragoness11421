@@ -3,11 +3,9 @@
 def display_results(results):
     """Display search results."""
     if not results:
-        print("No sightings found matching your query, please try again with different parameters.")
-        return    
-    for row in results:
-        print(row)
-    return
+        return "No sightings found matching your query, please try again with different parameters."   
+    else:
+        return results
 
 
 def filter_by_shape(data, shape):
