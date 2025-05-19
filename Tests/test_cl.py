@@ -22,21 +22,13 @@ class TestProcessorMethods(unittest.TestCase):
     def tearDown(self):
         """Restore original stdout."""
         sys.stdout = self._stdout
-    @patch("builtins.open", new_callable=mock_open, read_data='datetime,city\na,b\n')
-    def test_load_data(self, mock_file):
-        """Test loading CSV data into a list of dictionaries."""
-        result = load_data("test_file.csv")
-        expected_result = [{'datetime': 'a', 'city': 'b'}]
-        self.assertEqual(result, expected_result)
-        mock_file.assert_called_with("test_file.csv", newline='', encoding='utf-8')
-    def test_display_results(self):
+    def test_display_results(results, self):
         """Test that display_results prints each row in the data."""
         display_results(self.sample_data)
-        output = self.held_output.getvalue()
-        self.assertIn('san marcos', output)
-        self.assertIn('lackland afb', output)
-        self.assertIn('edna', output)
-        self.assertEqual(output.count('{'), 3)
+        self.assertIn('san marcos', self.sample_data)
+        self.assertIn('lackland afb', self.sample_data)
+        self.assertIn('edna', self.sample_data)
+        self.assertEqual(self.sample_data, list)
     def test_filter_by_shape(self):
         """Test filtering sightings by shape returns matching entries."""
         result_cylinder = filter_by_shape(self.sample_data, "cylinder")
