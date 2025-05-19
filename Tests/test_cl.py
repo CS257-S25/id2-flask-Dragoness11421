@@ -22,7 +22,7 @@ class TestProcessorMethods(unittest.TestCase):
     def tearDown(self):
         """Restore original stdout."""
         sys.stdout = self._stdout
-    def test_display_results(results, self):
+    def test_display_results(self):
         """Test that display_results prints each row in the data."""
         display_results(self.sample_data)
         self.assertIn('san marcos', self.sample_data)
