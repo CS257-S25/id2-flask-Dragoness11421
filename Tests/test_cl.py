@@ -45,7 +45,7 @@ class TestProcessorMethods(unittest.TestCase):
            "datetime,city,state,shape,duration,comments\n"
            "10/10/1949 20:30,san marcos,tx,cylinder,5 mins,\"desc\"\n"
            "10/10/1956 21:00,edna,tx,cylinder,5 mins,\"desc\"\n")
-    def test_get_sightings_by_shape(self, mock_file):
+    def test_get_sightings_by_shape(self):
         """Test wrapper that loads data and filters by shape correctly."""
         result = get_sightings_by_shape("cylinder")
         self.assertEqual(len(result), 2)
